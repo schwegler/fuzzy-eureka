@@ -120,6 +120,57 @@ If you prefer to run the application locally without Docker:
 
 - `VITE_API_URL`: The URL of the backend API (default: `http://localhost:5000/api/tweets`).
 
+## Continuous Integration
+
+To set up Continuous Integration (CI) using GitHub Actions, create a file named `.github/workflows/ci.yml` in your repository with the following content:
+
+```yaml
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+
+    - name: Install Dependencies (Backend)
+      run: |
+        cd backend
+        npm install
+
+    - name: Run Tests (Backend)
+      run: |
+        cd backend
+        npm test
+
+    - name: Install Dependencies (Frontend)
+      run: |
+        cd frontend
+        npm install
+
+    - name: Build (Frontend)
+      run: |
+        cd frontend
+        npm run build
+
+    - name: Build Docker Images
+      run: docker-compose build
+```
+
+This workflow will run on every push and pull request to the `main` branch. It installs dependencies, runs backend tests, builds the frontend, and builds the Docker images to ensure everything is working correctly.
+
 ## Project Structure
 
 ```
