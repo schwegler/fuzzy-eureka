@@ -1,9 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const helmet = require('helmet');
 const Tweet = require('./models/Tweet');
 
 const app = express();
+app.use(helmet());
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://mongo:27017/twitter-clone';
 
