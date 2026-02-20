@@ -39,4 +39,4 @@ jobs:
         npm run build
 
     - name: Build Docker Images
-      run: docker-compose build
+      run: docker compose build
