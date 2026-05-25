@@ -109,6 +109,19 @@ If you prefer to run the application locally without Docker:
     ```
     The frontend will be available at [http://localhost:5173](http://localhost:5173).
 
+### OS-Specific Setup
+
+#### Ubuntu (Latest)
+1. Update package list: `sudo apt update`
+2. Install Node.js, npm, and MongoDB following their official Ubuntu installation guides.
+3. Follow the Local Development instructions above.
+
+#### macOS 26.5
+1. Install Homebrew if not already installed: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+2. Install Node.js and MongoDB: `brew install node mongodb-community`
+3. Start the MongoDB service: `brew services start mongodb-community`
+4. Follow the Local Development instructions above.
+
 ## Environment Variables
 
 ### Backend
