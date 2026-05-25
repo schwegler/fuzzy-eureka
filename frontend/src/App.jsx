@@ -102,8 +102,8 @@ function CommentSection({ postId, comments, onCommentAdded }) {
     <div className="comments-section">
       <h4>Comments</h4>
       <div className="comments-list">
-        {comments.map((comment, index) => (
-          <div key={index} className="comment">
+        {comments.map((comment) => (
+          <div key={comment._id} className="comment">
             <p>{comment.content}</p>
             <small>{new Date(comment.createdAt).toLocaleString()}</small>
           </div>
@@ -152,8 +152,8 @@ function PostItem({ post, onUpdate }) {
 
       {post.tags && post.tags.length > 0 && (
         <div className="post-tags">
-          {post.tags.map((tag, i) => (
-            <span key={i} className="tag">#{tag}</span>
+          {post.tags.map((tag) => (
+            <span key={tag} className="tag">#{tag}</span>
           ))}
         </div>
       )}
