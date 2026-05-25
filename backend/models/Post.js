@@ -21,12 +21,14 @@ const PostSchema = new mongoose.Schema({
     content: String,
     createdAt: {
       type: Date,
-      default: Date.now
+      default: Date.now,
+      index: true
     }
   }],
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
+    index: true
   }
 });
 
