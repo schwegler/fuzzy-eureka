@@ -4,6 +4,17 @@ const cors = require('cors');
 const helmet = require('helmet');
 const Post = require('./models/Post');
 
+const isSafeUrl = (url) => {
+  if (!url) return false;
+  if (url.length > 2048) return false;
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+  } catch (e) {
+    return false;
+  }
+};
+
 const app = express();
 app.use(helmet());
 const PORT = process.env.PORT || 5000;
@@ -36,6 +47,15 @@ app.post('/api/posts', async (req, res) => {
     // Basic validation
     if (!type) {
       return res.status(400).json({ error: 'Post type is required' });
+    }
+
+    if (['photo', 'gif', 'link'].includes(type)) {
+      if (!url) {
+        return res.status(400).json({ error: 'URL is required for this post type' });
+      }
+      if (!isSafeUrl(url)) {
+        return res.status(400).json({ error: 'Invalid or unsafe URL' });
+      }
     }
 
     const newPost = new Post({
