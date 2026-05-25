@@ -48,7 +48,10 @@ app.post('/api/posts', async (req, res) => {
     const post = await newPost.save();
     res.json(post);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    if (err.name === 'ValidationError') {
+      return res.status(400).json({ error: err.message });
+    }
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -70,7 +73,10 @@ app.post('/api/posts/:id/comments', async (req, res) => {
 
     res.json(post);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    if (err.name === 'ValidationError') {
+      return res.status(400).json({ error: err.message });
+    }
+    res.status(500).json({ error: err.message });
   }
 });
 
