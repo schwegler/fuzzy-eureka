@@ -32,7 +32,7 @@ if (process.env.NODE_ENV !== 'test') {
 // Get all posts
 app.get('/api/posts', async (req, res) => {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 });
+    const posts = await Post.find().sort({ createdAt: -1 }).lean();
     res.json(posts);
   } catch (err) {
     res.status(500).json({ error: err.message });
